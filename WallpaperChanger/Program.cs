@@ -15,17 +15,31 @@ namespace WallpaperChanger
     {
         static void Main(string[] args)
         {
+            bool areAyes = false;
             try
             {
-                var uri = new System.Uri("c:\\noviWallpaper.png");
-                Console.WriteLine(uri);
-                Wallpaper.Set(uri, Wallpaper.Style.Stretched);
-                for (int i = 0; i < 1000; i++)
+                var WhiteUri = new System.Uri("c:\\noviWallpaper.png");
+                var BlueUri = new System.Uri("c:\\bitEyes1.png");
+                while (true)
                 {
-                    Console.WriteLine(Cursor.Position.X);
-                    Console.WriteLine(Cursor.Position.Y);
+                    if (Cursor.Position.X < 450)
+                    {
+                        if (!areAyes)
+                        {
+                            Wallpaper.Set(BlueUri, Wallpaper.Style.Stretched);
+                            areAyes = true;
+                        }
+                    }
+                    else
+                    {
+                        if (areAyes)
+                        {
+                            Wallpaper.Set(WhiteUri, Wallpaper.Style.Stretched);
+                            areAyes = false;
+                        }
+                    }
                     Thread.Sleep(100);
-                }                    
+                }
             }
             catch (Exception e)
             {
