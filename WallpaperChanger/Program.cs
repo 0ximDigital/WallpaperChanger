@@ -16,7 +16,9 @@ namespace WallpaperChanger
             // TODO Wallpaper.Set("nekiPath");
             try
             {
-                Wallpaper.Set(new Uri("C:\\Documents\\noviWallaper.png"), Wallpaper.Style.Stretched);
+                var uri = new System.Uri("c:\\noviWallpaper.png");
+                Console.WriteLine(uri);
+                Wallpaper.Set(uri, Wallpaper.Style.Stretched);
             }
             catch (Exception e)
             {
