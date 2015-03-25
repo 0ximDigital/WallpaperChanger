@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using System.IO;
 using Microsoft.Win32;
+using System.Windows.Forms;
+using System.Threading;
 
 namespace WallpaperChanger
 {
@@ -13,12 +15,17 @@ namespace WallpaperChanger
     {
         static void Main(string[] args)
         {
-            // TODO Wallpaper.Set("nekiPath");
             try
             {
                 var uri = new System.Uri("c:\\noviWallpaper.png");
                 Console.WriteLine(uri);
                 Wallpaper.Set(uri, Wallpaper.Style.Stretched);
+                for (int i = 0; i < 1000; i++)
+                {
+                    Console.WriteLine(Cursor.Position.X);
+                    Console.WriteLine(Cursor.Position.Y);
+                    Thread.Sleep(100);
+                }                    
             }
             catch (Exception e)
             {
