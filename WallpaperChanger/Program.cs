@@ -47,6 +47,10 @@ namespace WallpaperChanger
                 if (nextImageUri != null)
                 {
                     Wallpaper.Set(nextImageUri, Wallpaper.Style.Stretched);
+                    if (stateResolver.getCurrentState() == -1)
+                    {
+                        Thread.Sleep(100);
+                    }
                 }
             }
         }
@@ -55,6 +59,7 @@ namespace WallpaperChanger
     public sealed class WallpaperStateResolver
     {
         private int currentState;
+        private Random random;
 
         const String basePath = "d:\\Windows\\VisualStudio Projects\\WallpaperChanger\\Wallpapers\\";
         const String imgDoljeDesnoPath = "doljeDesno.png";          // 1 
@@ -68,9 +73,21 @@ namespace WallpaperChanger
         const String imgCentarPath = "centar.png";                  // 9
         const String imgKrizPath = "uKriz.png";                     // 10
 
+        // DERP MODE !!!
+        const String imgDerp1 = "derp1.png";    // -1
+        const String imgDerp2 = "derp2.png";    // -1
+        const String imgDerp3 = "derp3.png";    // -1
+        const String imgDerp4 = "derp4.png";    // -1
+
         public WallpaperStateResolver()
         {
-            this.currentState = -1;    
+            this.currentState = -1;
+            this.random = new Random();
+        }
+
+        public int getCurrentState()
+        {
+            return this.currentState;
         }
 
         public Uri getWallpaperForMousePosition(int mouseX, int mouseY) 
@@ -78,9 +95,24 @@ namespace WallpaperChanger
             String newImagePath = null;
             Uri newUri = null;
 
-            if (mouseX < 10)        // DERP MODE !!!
+            if (mouseY < 10)        // DERP MODE !!!
             {
-                // TODO
+                switch (random.Next(5))
+                {
+                    case 1:
+                        newImagePath = basePath + imgDerp1;
+                        break;
+                    case 2:
+                        newImagePath = basePath + imgDerp2;
+                        break;
+                    case 3:
+                        newImagePath = basePath + imgDerp3;
+                        break;
+                    case 4:
+                        newImagePath = basePath + imgDerp4;
+                        break;
+                }
+                currentState = -1;
             }
             else if (mouseX < 430)      // ljevo
             {
